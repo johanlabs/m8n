@@ -7,6 +7,7 @@ import HttpRequestNode from "./nodes/HttpRequestNode";
 import LoopNode from "./nodes/LoopNode";
 import ManualTriggerNode from "./nodes/ManualTriggerNode";
 import WebhookNode from "./nodes/WebhookNode";
+import { safeToSnake } from "../utils/string";
 
 
 class WorkflowEngine {
@@ -98,7 +99,9 @@ class WorkflowEngine {
       // @ts-ignore
       const item: { type: string, name: string, [key: string]: any } = start?.value;
       let instance: NodeBase | undefined;
-      let name: string | undefined = item.name;
+      const name = item.name
+          ? safeToSnake(item.name)
+          : safeToSnake(item.type); 
 
 
       if (!instanceByType[item.type]) {

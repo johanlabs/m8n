@@ -1,6 +1,7 @@
 import { memo } from "react";
 import { Handle, Position } from "reactflow";
 import { Copy, Globe, Trash2 } from "lucide-react";
+import { safeToSnake } from "@/utils/string";
 
 interface CustomNodeProps {
   data: any;
@@ -38,7 +39,7 @@ export const CustomNode = memo(({ data, isConnectable }: CustomNodeProps) => {
         <div className="font-medium">{data.label}</div>
       </div>
       <div className="text-xs font-medium text-muted-foreground">
-        {data.name || "Unnamed Step"}
+        { safeToSnake(data.name) || "Unnamed Step"}
       </div>
       <Handle
         type="target"
